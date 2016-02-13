@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="quoteBook">
+  <head>
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <meta charset="utf-8">
+    <title>Quotebook</title>
+  </head>
+  <body  ng-controller="mainCtrl">
+  <header>
+    <h1>QuoteBook</h1>
+  </header>
+  <nav>
+    <input class="button" type="button" value="Add Quote" ng-show="mainMenu" ng-click="addQuote(-2)">
+    <input class="button" type="button" value="Remove Quote" ng-show="mainMenu" ng-click="removeToggle()">
+    <input class="button" type="button" value="Filter Quotes" ng-show="mainMenu" ng-click="filterToggle()">
+
+    <!-- These controls are for filtering the quote list -->
+    <input placeholder="Search Quote Text" ng-model="search.text" ng-show="filter">
+    <input placeholder="Search Authors" ng-model="search.author" ng-show="filter">
+    <input class="button" type="button" value="Cancel" ng-show="filter" ng-click="filterToggle()">
+
+    <!-- This fields are for adding a new quote -->
+    <input type="textarea" placeholder="Input text of new quote here" ng-model="quoteText" ng-show="inputNew">
+    <input type="textarea" placeholder="Input text of new quote here" ng-model="quoteAuthor" ng-show="inputNew">
+    <input type="button" value="Add Quote" ng-show="inputNew" ng-click="addQuote(quoteText,quoteAuthor)">
+    <input type="button" value="Cancel" ng-show="inputNew" ng-click="addQuote(-1)">
+  </nav>
+  <section>
+
+    <div class="quote" ng-repeat="quote in quotes | filter:search">
+      <p>
+        {{quote.text}}
+      </p>
+      <h6>{{quote.author}}</h6>
+      <input class="button" type="button" value="Remove Quote" ng-show="delToggle" ng-click="removeQuote(quote.text)">
+    </div>
+
+  </section>
+  <footer></footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js" charset="utf-8"></script>
+  <script src="js/quoteBook.js" charset="utf-8"></script>
+  <script src="js/dataService.js" charset="utf-8"></script>
+  <script src="js/mainCtrl.js" charset="utf-8"></script>
+  </body>
+</html>
